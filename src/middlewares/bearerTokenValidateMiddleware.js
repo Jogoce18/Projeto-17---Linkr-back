@@ -22,4 +22,5 @@ const bearerTokenValidateMiddleware = (req, res, next) => {
     }
 };
 
+
 export default bearerTokenValidateMiddleware;
