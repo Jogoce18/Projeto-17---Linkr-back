@@ -21,4 +21,5 @@ const bearerTokenValidateMiddleware = (req, res, next) => {
         return res.sendStatus(401);
     }
 };
+
 export default bearerTokenValidateMiddleware;
