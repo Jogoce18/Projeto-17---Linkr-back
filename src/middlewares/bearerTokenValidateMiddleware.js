@@ -11,7 +11,6 @@ const bearerTokenValidateMiddleware = (req, res, next) => {
         return res
             .status(401)
             .send(error.details.map(({ message }) => message));
-            
     try {
         const token = req.headers.authorization.split(" ")[1];
         const userData = JWTVerify(token);
