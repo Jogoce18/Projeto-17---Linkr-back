@@ -1,4 +1,4 @@
-import db from "../config/db.js";
+import db from "../postgresStrategy/db.js";
 
 const insertPost = async (data) => {
     return await db.query(

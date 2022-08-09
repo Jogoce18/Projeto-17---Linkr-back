@@ -1,4 +1,4 @@
-import db from "../config/db.js";
+import db from "../postgresStrategy/db.js";
 
 
 export const hasLiked = async (userId, postId) => {
