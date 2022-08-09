@@ -11,6 +11,6 @@ dotenv.config();
 
 
 const PORT = process.env.PORT || 4000; 
-server.listen(POST, () => {
+server.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
