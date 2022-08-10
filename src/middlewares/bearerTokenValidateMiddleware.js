@@ -1,4 +1,3 @@
-
 import JWTVerify from "../services/JWTVerify.js";
 import bearerTokenHeadersSchema from "../schemas/bearerTokenHeadersSchema.js";
 import verboseLog from "../utils/verboseLog.js";

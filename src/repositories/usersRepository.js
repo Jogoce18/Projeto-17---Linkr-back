@@ -1,7 +1,7 @@
-import connection from "../database.js";
+import db from "../postgresStrategy/db.js";
 
 function searchUsers(queryComplement, querySupplies) {
-    return connection.query(`
+    return db.query(`
         SELECT 
             users.picture as picture,
             users.name as name

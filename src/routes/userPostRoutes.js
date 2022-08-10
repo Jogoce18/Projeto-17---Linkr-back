@@ -12,9 +12,8 @@ import postSchema from "../schemas/userPostSchema.js";
 
 const userPost = Router();
 
-userPost.use(bearerTokenValidateMiddleware);
-userPost.post("/post", schemaValidateMiddleware(postSchema), PostUser);
-userPost.delete("/post/:postId", deletePost);
-userPost.put("/post/:postId", schemaValidateMiddleware(postSchema), editPost);
+userPost.post("/post",bearerTokenValidateMiddleware,schemaValidateMiddleware(postSchema), PostUser);
+userPost.delete("/post/:postId",bearerTokenValidateMiddleware,deletePost);
+userPost.put("/post/:postId",bearerTokenValidateMiddleware,schemaValidateMiddleware(postSchema), editPost);
 
 export default userPost;

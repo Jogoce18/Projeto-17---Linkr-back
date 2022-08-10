@@ -1,13 +1,13 @@
-import connection from "../database.js";
+import db from "../postgresStrategy/db.js";
 
 async function selectSessions(queryComplement, querySupplies) {
-    return connection.query(`
+    return db.query(`
         SELECT *
         FROM sessions
         ${queryComplement}
     `, querySupplies);
 }
 
-export const sessionsPatterns = {
+export const sessionPatterns = {
     selectSessions,
 };

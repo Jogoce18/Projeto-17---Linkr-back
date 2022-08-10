@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
-async function authRoute(req,res,next){
+async function tokenValidation(req,res,next){
     const {authorization}= req.headers
     const token= authorization ?.replace('Bearer ', '').trim();
     const secretKey = process.env.JWT_SECRET;
@@ -43,4 +43,4 @@ async function authRoute(req,res,next){
 
 }
 
-export default authRoute;
+export default tokenValidation;

@@ -1,6 +1,6 @@
 import { userPatterns } from "../repositories/usersRepository.js";
 
-export function searchUsers(req, res) {
+export async function searchUsers(req, res) {
     const { name } = req.query;
     let queryComplement = "";
     const querySupplies = [];

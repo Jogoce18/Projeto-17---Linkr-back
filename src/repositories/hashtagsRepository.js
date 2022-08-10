@@ -13,7 +13,7 @@ const getHashtagByName = (name) => {
 const getTrending = async () => {
     return await db.query(`--sql
         SELECT hashtags.* FROM hashtags
-            LEFT JOIN "postHashtag" ON "postHashtag"."hashtagId" = hashtags.id
+        LEFT JOIN "postHashtag" ON "postHashtag"."hashtagId" = hashtags.id
         GROUP BY hashtags.id
         HAVING COUNT("postHashtag"."hashtagId") > 0
         ORDER BY COUNT("postHashtag"."hashtagId") DESC 

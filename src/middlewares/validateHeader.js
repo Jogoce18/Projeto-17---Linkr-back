@@ -1,5 +1,5 @@
 import { headerSchema } from "../schemas/headerSchemas.js";
-import { sessionPatterns } from "../repositories/sessionsRepository.js";
+import {sessionPatterns} from '../repositories/sessionsRepository.js'
 
 export async function validateHeader(req, res, next) {
     const header = { Authorization: req.headers.authorization };
@@ -17,7 +17,7 @@ export async function validateToken(req, res, next) {
     const token = req.header.authorization.replace("Bearer ", "");
     const queryComplement = "WHERE sessions.token = $1";
     const querySupplies = [token];
-    const { rows: dbSessions } = await sessionPatterns.selectUserSession(queryComplement, querySupplies);
+    const { rows: dbSessions } = await sessionPatterns.selectSessions(queryComplement, querySupplies);
 
     if (!dbSessions.length) {
         res.sendStatus(401);
