@@ -6,11 +6,8 @@ import jwt from 'jsonwebtoken';
 dotenv.config();
 
 export async function login(req,res) {
-    const invalid=schemaFunctions.validateLogin(req.body)
-
+    
     try{
-        if(invalid) return res.sendStatus(422)
-
         const {email,password}=req.body
         const {rows:checkUser}=await authRepository.getUser(email)
         if(checkUser.rowCount===0) return res.status(404).send("Usuario não encontrado")

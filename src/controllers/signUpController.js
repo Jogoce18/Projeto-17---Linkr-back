@@ -3,12 +3,9 @@ import { authRepository } from '../repositories/authRepository.js'
 import { schemaFunctions } from '../schemas/schemas'
 
 export async function sign_up(req,res) {
-    const invalid=schemaFunctions.validateSignUp(req.body)
     const {username,email,password,picture}=req.body
     
     try{
-        if(invalid) return res.sendStatus(422)
-        
         const {rows:checkEmail}=await authRepository.getUser(email)
         if(checkEmail.rowCount!=0) return res.status(409).send("Usuario já cadastrado")
 
