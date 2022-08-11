@@ -9,6 +9,7 @@ export async function login(req, res) {
   try {
     const { email, password } = req.body;
     const { rows: checkUser } = await authRepository.getUser(email);
+
     if (checkUser.length === 0)
       return res.status(404).send("Usuario não encontrado");
 
@@ -26,7 +27,7 @@ export async function login(req, res) {
       res.send({
         token,
         username: checkUser[0].username,
-        pictureUrl: checkUser[0].pictureUrl,
+        pictureUrl: checkUser[0].pictureURL,
       });
     } else {
       return res.status(401).send("E-mail ou senha incorretos");
