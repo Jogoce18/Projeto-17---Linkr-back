@@ -17,5 +17,6 @@ export async function sign_up(req,res) {
         console.log(e)
         res.status(500).send("Erro com o servidor")
     }
+    
 }
 
