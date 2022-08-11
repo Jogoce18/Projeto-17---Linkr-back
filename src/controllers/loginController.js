@@ -17,7 +17,7 @@ export async function login(req,res) {
             const configuracoes = { expiresIn: 60*60*24 }
             const token = jwt.sign(dados, chaveSecreta,configuracoes);
 
-            await authRepository.postLogin(checkUser[0].id,token)
+            await authRepository.postLogin(token) 
             
             res.send({
                 token,

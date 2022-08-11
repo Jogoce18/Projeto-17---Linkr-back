@@ -1,21 +1,21 @@
-import PostRepository from "../repositories/ PostRepository";
+import PostRepository from "../repositories/PostRepository.js";
 
 export async function CreatePost(req, res) {
 
     try {
+ 
+        const userId = res.locals.id.userId;
 
-        const userId = 1
+        const { url, article } = req.body
 
-        const { url, description } = req.body
+        await PostRepository.createMyPost(userId, url, article);
 
-        await PostRepository.createMyPost(userId, url, description);
-
-        return res.send(201)
+        return res.sendStatus(201)
     }
-    catch {
-        console.log('deuruim')
+    catch (e) {
+        console.log(e)
 
-        return res.send(500)
+        return res.sendStatus(500)
     }
 
 }
