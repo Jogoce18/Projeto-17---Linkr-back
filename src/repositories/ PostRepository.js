@@ -1,8 +1,5 @@
 import db from "../postgresStrategy/db.js"
 
-
-
-
 async function createMyPost(userId, url, article) {
     return connection.query(`
         INSERT INTO posts ("userId",url,article)
