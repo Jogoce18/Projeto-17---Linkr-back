@@ -10,6 +10,16 @@ function searchUsers(queryComplement, querySupplies) {
     `, querySupplies);
 }
 
+async function selectUserById(id) {
+    return await db.query(
+    `--sql
+    SELECT * 
+    FROM users
+    WHERE id = $1
+    `, [id]);
+}
+
 export const userPatterns = {
     searchUsers,
+    selectUserById,
 }

@@ -5,7 +5,7 @@ async function getUser(email){
 }
 
 async function postSignUp(email,password,username,pictureUrl){
-    return db.query(`INSERT INTO users (email,password,name,"pictureUrl") VALUES ($1,$2,$3,$4)` , [email,password,username,pictureUrl])
+    return db.query(`INSERT INTO users (email,password,username,"pictureUrl") VALUES ($1,$2,$3,$4)` , [email,password,username,pictureUrl])
 }
 
 async function postLogin(userId,token){

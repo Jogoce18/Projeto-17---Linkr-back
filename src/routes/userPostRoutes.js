@@ -10,6 +10,7 @@ import postSchema from "../schemas/userPostSchema.js";
 
 const userPost = Router();
 
-userPost.post('/timeline',schemaValidateMiddleware(postSchema), CreatePost);
+userPost.post("/post",schemaValidateMiddleware(postSchema), CreatePost);
+
 
 export default userPost;
