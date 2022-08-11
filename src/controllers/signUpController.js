@@ -16,5 +16,6 @@ export async function sign_up(req,res) {
     } catch(e){
         res.status(500).send("Erro com o servidor")
     }
+    
 }
 
