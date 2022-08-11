@@ -65,3 +65,10 @@ export const deletePost = async (req, res) => {
         res.sendStatus(500);
     }
 };
+
+export const selectAll = async (req, res) => {
+    const userId = req.params.id;
+    const { rows: dbUserPosts } = userPostRepository.selectAllUsersPosts(userId);
+
+    res.status(200).send(dbUserPosts);
+}

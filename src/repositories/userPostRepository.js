@@ -1,5 +1,15 @@
 import db from "../postgresStrategy/db.js";
 
+const selectAllUsersPosts = async (id) => {
+    return await db.query(
+        `--sql
+        SELECT * 
+        FROM posts 
+        WHERE "userId" = $1
+        `
+    , [id]);
+}
+
 const insertPost = async (data) => {
     return await db.query(
         `--sql
@@ -36,5 +46,6 @@ const userPostRepository = {
     insertPost,
     deletePost,
     updatePost,
+    selectAllUsersPosts,
 };
 export default userPostRepository;
