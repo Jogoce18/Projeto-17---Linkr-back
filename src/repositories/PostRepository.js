@@ -1,33 +1,46 @@
 import db from "../postgresStrategy/db.js"
 
-async function createMyPost(userId, url, article) {
-    return db.query(`
-        INSERT INTO posts ("userId",url,article)
-        values ($1,$2,$3)`,
-        [userId, url, article])
+async function  createMyPost(
+  userId,
+  url,
+  article,
+  urltitle,
+  urlimage,
+  urldescription
+) {
+  return connection.query(
+    `INSERT INTO publications ("userId", url, article, "urlTitle", "urlImage", "urlDescription") VALUES ($1, $2, $3, $4, $5, $6)`,
+    [userId, url, article, urltitle, urlimage, urldescription]
+  );
 }
-
-async function deletePostById(id) {
+async function deletePostById(postId) {
     return db.query(
         `
         DELETE FROM posts
         WHERE id = $1
-        `, [id]
+        `, [postId]
     )
 }
 
-async function compareUserAndIdPost(userId, idPost){
-    return db.query( `
-        SELECT * FROM posts
-        WHERE "userId" = $1 AND id = $2
-    `, [userId, idPost])
-}
 
+async function searchPost(postId) {
+    return db.query(`SELECT * FROM posts WHERE id = $1`, [
+      postId,
+    ]);
+  }
+
+async function updatePost(article, postId, userId) {
+    return db.query(
+      `UPDATE post SET article = $1 WHERE id = $2 AND "userId" = $3`,
+      [article, postId, userId]
+    );
+  }
 const PostRepository = {
  
     deletePostById,
-    compareUserAndIdPost,
-    createMyPost
+    createMyPost,
+    searchPost,
+    updatePost
 };
 
 export default PostRepository;
