@@ -8,8 +8,8 @@ async function  createMyPost(
   urlimage,
   urldescription
 ) {
-  return connection.query(
-    `INSERT INTO publications ("userId", url, article, "urlTitle", "urlImage", "urlDescription") VALUES ($1, $2, $3, $4, $5, $6)`,
+  return db.query(
+    `INSERT INTO posts ("userId", url, article, "urlTitle", "urlImage", "urlDescription") VALUES ($1, $2, $3, $4, $5, $6)`,
     [userId, url, article, urltitle, urlimage, urldescription]
   );
 }
