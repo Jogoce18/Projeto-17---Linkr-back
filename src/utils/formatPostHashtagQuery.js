@@ -1,9 +1,11 @@
-const formatPostHashtagQuery = (postId, hashtagIds) => {
-    const buildQuery = hashtagIds.map(
-        (hashtag) => `(${postId.id}, ${hashtag.id})`,
-    );
-    const joinAll = buildQuery.join(", ");
-    return joinAll;
-};
+export default function addSpaceHashtagsStuck(text){
 
-export default formatPostHashtagQuery;
+    if(text.includes('#')){
+        text = text.replace(/#/gi, ' #');
+        text = text.replace(/# /gi, '');
+        text = text.replace(/\s{2,}/g, ' ');
+        text = text.trim();
+    }
+    
+    return text;
+}
