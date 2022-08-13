@@ -14,3 +14,16 @@ export async function searchUsers(req, res) {
 
     res.status(200).send(dbUsers);
 }
+
+export async function searchUserPosts (req, res) {
+    const userId = req.params.id;
+
+    try {
+        const { rows: userPosts } = await userPatterns.selectUserPosts(userId);
+
+        res.status(200).send(userPosts);
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}

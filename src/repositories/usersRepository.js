@@ -3,8 +3,8 @@ import db from "../postgresStrategy/db.js";
 function searchUsers(queryComplement, querySupplies) {
     return db.query(`
         SELECT 
-            users.picture as picture,
-            users.name as name
+            users."pictureURL",
+            users."username"
         FROM users
         ${queryComplement}
     `, querySupplies);
@@ -19,7 +19,27 @@ async function selectUserById(id) {
     `, [id]);
 }
 
+async function selectUserPosts(userId) {
+    return db.query(`
+    SELECT 
+        posts.id as "postId",
+        posts.url,
+        posts.article,
+        posts."urlTitle",
+        posts."urlImage",
+        posts."urlDescription",
+        users.id as "userId",
+        users."username",
+        users."pictureURL" 
+    FROM users 
+    JOIN posts 
+    ON posts."userId" = users.id
+    WHERE users.id = $1
+    `, [userId]);
+}
+
 export const userPatterns = {
     searchUsers,
     selectUserById,
+    selectUserPosts,
 }

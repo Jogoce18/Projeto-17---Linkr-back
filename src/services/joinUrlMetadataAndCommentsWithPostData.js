@@ -11,7 +11,7 @@ const joinUrlMetadataCommentsAndLikesWithPostData = async (posts) => {
                 if (urlMetadata === -1)
                     throw new Error("Error in getMetadataUrl");
                 return {
-                    ...post,
+                    ...post, 
                     urlMetadata,
                 };
             }),
