@@ -38,19 +38,19 @@ const haveHashtag = async (req, res, next) => {
 }
 
 const validatePostExistence = async (req, res, next) => {
-    const { postId } = req.body;
+    const postId = req.params.id;
     const { rows: validatePost } = await PostRepository.searchPost(postId);
   
     if (validatePost.length === 0) {
-    res.sendStatus(404);
-    return; 
+        res.sendStatus(404);
+        return; 
     }
 
     next();
 }
 
 const verifyIfPostBelongsToUser = async (req, res, next) => {
-    const { postId } = req.body;
+    const postId = req.params.id;
     const userId = res.locals.resultUser.id;
     const { rows: validatePost } = await PostRepository.searchPost(postId);
 

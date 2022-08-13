@@ -33,7 +33,8 @@ export async function CreatePost(req, res) {
 }
 
 export async function editPost(req, res) {
-  const { postId, article } = req.body;
+  const { article } = req.body;
+  const postId = req.params.id;
   const userId = res.locals.resultUser.id;
   const { allHashtagsIds } = res.locals;
 

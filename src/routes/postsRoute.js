@@ -14,7 +14,7 @@ import validateToken from "../middlewares/authorizationMiddleware.js";
 const userPost = Router();
  
 userPost.post("/posts", validateToken, schemaValidateMiddleware(postSchema), haveHashtag, CreatePost);
-userPost.put("/posts", validateToken, validatePostExistence, verifyIfPostBelongsToUser, haveHashtag, editPost);
+userPost.put("/posts/:id", validateToken, validatePostExistence, verifyIfPostBelongsToUser, haveHashtag, editPost);
 userPost.get("/posts", validateToken, timeline);
 
 export default userPost;
