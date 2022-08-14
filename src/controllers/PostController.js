@@ -9,21 +9,20 @@ export async function CreatePost(req, res) {
     const { allHashtagsIds } = res.locals;
     const urlData = await urlMetadata(url);
 
-    const { rows:postId } = await PostRepository.createMyPost(
-      userId, 
-      url, 
+    const { rows: postId } = await PostRepository.createMyPost(
+      userId,
+      url,
       article,
       urlData.title,
       urlData.image,
       urlData.description
     );
 
-    for(let i = 0; i < allHashtagsIds.length; i++){
+    for (let i = 0; i < allHashtagsIds.length; i++) {
       const hashtagId = allHashtagsIds[i];
 
       await hashtagsRepository.insertHashtagsPosts(hashtagId, postId[0].id);
     }
-
 
     return res.sendStatus(201);
   } catch (e) {
@@ -42,12 +41,12 @@ export async function editPost(req, res) {
     await hashtagsRepository.deleteHashtagsOfPost(postId);
     await PostRepository.updatePost(article, postId, userId);
 
-    for(let i = 0; i < allHashtagsIds.length; i++){
+    for (let i = 0; i < allHashtagsIds.length; i++) {
       const hashtagId = allHashtagsIds[i];
 
       await hashtagsRepository.insertHashtagsPosts(hashtagId, postId);
     }
-    
+
     res.sendStatus(200);
   } catch (e) {
     console.log(e);
@@ -57,11 +56,17 @@ export async function editPost(req, res) {
 
 export async function timeline(req, res) {
   try {
-    const { rows: posts} = await PostRepository.getPosts();
+    const { rows: posts } = await PostRepository.getPosts();
+    const { rows: likes } = await PostRepository.getLikes();
 
-    res.status(200).send(posts);
-  } catch(e) {
+    const joinPosts = posts.map((post) => {
+      const filterLikes = likes.filter((like) => like.postId === post.postId);
+      return { ...post, likes: filterLikes };
+    });
+
+    res.status(200).send(joinPosts);
+  } catch (e) {
     console.log(e);
-    res.sendStatus(400)
+    res.sendStatus(400);
   }
 }
