@@ -74,12 +74,3 @@ export const selectAll = async (req, res) => {
     res.status(200).send(dbUserPosts);
 }
 
-export const getPosts= async(req,res)=>{
-
-
-    const result = await userPostRepository.selectAllPosts()
-    console.log(result)
-
-    res.send(result.rows)
-
-}

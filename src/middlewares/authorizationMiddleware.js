@@ -8,6 +8,7 @@ async function tokenValidation(req,res,next){
     const {authorization}= req.headers
     const token= authorization ?.replace('Bearer ', '').trim();
     const secretKey = process.env.JWT_SECRET;
+    
     if(!token) return res.status(401).send("Token não existe"); 
 
     try {
@@ -17,19 +18,17 @@ async function tokenValidation(req,res,next){
         
         const resultSession= await tokenRepository.getToken(token)
 
-
         if(resultSession.rowCount==0){
             return res.status(401).send("Sessão não existe")
         }
 
-        const user = resultSession.rows[0].userId
-
-
+        const user = jwt.verify(token, secretKey).userId;
         const resultUser= await tokenRepository.getUser(user)
     
         if(resultUser.rowCount==0) return res.status(404).send("Usuário não encontrado"); // unauthorized
 
-        res.locals.resultUser = resultUser.rows;
+        res.locals.resultUser = resultUser.rows[0];
+        
         next()
 
     } catch (error) {
@@ -39,8 +38,6 @@ async function tokenValidation(req,res,next){
     return res.sendStatus(500);
 
     }
-   
-
 }
 
 export default tokenValidation;

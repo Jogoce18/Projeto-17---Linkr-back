@@ -1,8 +1,8 @@
 import { userPatterns } from "../repositories/usersRepository.js";
 
-export function validateUserId(req, res, next) {
+export async function validateUserId(req, res, next) {
     const userId = req.params.id;
-    const { rows: dbUsers } = userPatterns.selectUserById(userId);
+    const { rows: dbUsers } = await userPatterns.selectUserById(userId);
 
     if (!dbUsers.length) {
         res.sendStatus(404);
