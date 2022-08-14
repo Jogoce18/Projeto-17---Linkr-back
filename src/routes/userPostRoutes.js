@@ -11,6 +11,8 @@ import bearerTokenValidateMiddleware from "../middlewares/bearerTokenValidateMid
 import postSchema from "../schemas/userPostSchema.js";
 import { validateUserId } from "../middlewares/usersMIddlewares.js";
 import { selectAll } from "../controllers/userPostController.js";
+import userPostRepository from "../repositories/userPostRepository.js";
+import { getPosts } from "../controllers/userPostController.js";
 
 const userPost = Router();
 
@@ -18,5 +20,6 @@ userPost.post("/post",bearerTokenValidateMiddleware,schemaValidateMiddleware(pos
 userPost.delete("/post/:postId",bearerTokenValidateMiddleware,deletePost);
 userPost.put("/post/:postId",bearerTokenValidateMiddleware,schemaValidateMiddleware(postSchema), editPost);
 userPost.get("post/:userId", bearerTokenValidateMiddleware, validateUserId, selectAll);
+userPost.get("/posts" , getPosts)
 
 export default userPost;

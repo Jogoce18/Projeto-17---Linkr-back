@@ -9,6 +9,15 @@ const selectAllUsersPosts = async (id) => {
         `
     , [id]);
 }
+const selectAllPosts = async () => {
+    return await db.query(
+        `--sql
+        SELECT * 
+        FROM posts 
+      
+        `
+    );
+}
 
 const insertPost = async (data) => {
     return await db.query(
@@ -47,5 +56,6 @@ const userPostRepository = {
     deletePost,
     updatePost,
     selectAllUsersPosts,
+    selectAllPosts
 };
 export default userPostRepository;

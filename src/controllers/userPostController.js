@@ -4,6 +4,7 @@ import likeRepository from "../repositories/likeRepository.js";
 import hashtagsRepository from "../repositories/hashtagsRepository.js";
 import verboseLog from "../utils/verboseLog.js";
 
+
 export const PostUser = async (req, res) => {
     const userId = res.locals.userData;
     const data = { ...req.body, userId };
@@ -71,4 +72,14 @@ export const selectAll = async (req, res) => {
     const { rows: dbUserPosts } = userPostRepository.selectAllUsersPosts(userId);
 
     res.status(200).send(dbUserPosts);
+}
+
+export const getPosts= async(req,res)=>{
+
+
+    const result = await userPostRepository.selectAllPosts()
+    console.log(result)
+
+    res.send(result.rows)
+
 }
