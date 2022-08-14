@@ -57,12 +57,12 @@ export async function editPost(req, res) {
 export async function timeline(req, res) {
   try {
     const { rows: posts } = await PostRepository.getPosts();
-    const { rows: likes } = await PostRepository.getLikes();
+    // const { rows: likes } = await PostRepository.getLikes();
 
-    const joinPosts = posts.map((post) => {
-      const filterLikes = likes.filter((like) => like.postId === post.postId);
-      return { ...post, likes: filterLikes };
-    });
+    // const joinPosts = posts.map((post) => {
+    //   const filterLikes = likes.filter((like) => like.postId === post.postId);
+    //   return { ...post, likes: filterLikes };
+    // });
 
     res.status(200).send(joinPosts);
   } catch (e) {
