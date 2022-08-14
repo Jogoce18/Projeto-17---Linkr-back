@@ -3,5 +3,6 @@ const urlExpression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z
 const postSchema = joi.object({
     url: joi.string().pattern(new RegExp(urlExpression)).required(),
     article: joi.string(),
+    hashtags:joi.string()
 });
 export default postSchema;
