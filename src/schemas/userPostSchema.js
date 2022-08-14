@@ -6,4 +6,4 @@ const postSchema = joi.object({
   hashtags: joi.string()
 
 });
-export default postSchema;
+export default postSchema
