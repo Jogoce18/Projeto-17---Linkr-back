@@ -12,11 +12,7 @@ async function tokenValidation(req, res, next) {
   if (!token) return res.status(401).send("Token não existe");
 
   try {
-    jwt.verify(token, secretKey, (err) => {
-      if (err)
-        return res.status(401).send("Token expirado,faça login novamente");
-    });
-
+    jwt.verify(token, secretKey);
     const resultSession = await tokenRepository.getToken(token);
 
     if (resultSession.rowCount == 0) {
@@ -35,7 +31,7 @@ async function tokenValidation(req, res, next) {
   } catch (error) {
     console.log("Erro ao tentar obter usuário através da sessão");
     console.log(error);
-    return res.sendStatus(500);
+    return res.status(401).send("Token expirado,faça login novamente");
   }
 }
 
