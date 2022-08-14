@@ -64,7 +64,7 @@ export async function timeline(req, res) {
     //   return { ...post, likes: filterLikes };
     // });
 
-    res.status(200).send(joinPosts);
+    res.status(200).send(posts);
   } catch (e) {
     console.log(e);
     res.sendStatus(400);
