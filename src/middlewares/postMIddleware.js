@@ -7,12 +7,18 @@ const haveHashtag = async (req, res, next) => {
 
     try{
         const descriptionArray = article.split(" ");
-        const allHashtags = descriptionArray.filter((string) => {
+        const allHashtagsRepeated = descriptionArray.filter((string) => {
             return string[0] == "#";
         });
+        const allHashtags = allHashtagsRepeated.reduce(function (newArray, currentValue) {
+            if (!newArray.includes(currentValue))
+                newArray.push(currentValue);
+            return newArray;
+        }, []);
 
         for(let i = 0; i < allHashtags.length; i++){
             const hashtag = allHashtags[i].split("#")[1];
+            console.log(hashtag)
             const { rows:hashtagDb } = await hashtagsRepository.selectHashtags(hashtag);
 
             if(!hashtagDb.length){
