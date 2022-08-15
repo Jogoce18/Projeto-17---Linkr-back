@@ -19,6 +19,7 @@ export async function getHashTags(req,res){
 }
 export async function getHashtagByName(req, res) {
   const { hashtag } = req.params;
+  
 
   try {
     const result = await hashtagsRepository.getHashtagPosts(hashtag);
