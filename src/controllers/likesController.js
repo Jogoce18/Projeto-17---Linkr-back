@@ -5,6 +5,7 @@ export async function postLikes(req, res) {
     const { postId } = req.params;
     const { id } = res.locals.resultUser;
     await likesRepository.postLikes(id, postId);
+    res.sendStatus(200);
   } catch (e) {
     console.log(e);
     res.status(500).send("Erro com o servidor");
@@ -16,6 +17,7 @@ export async function removeLikes(req, res) {
     const { postId } = req.params;
     const { id } = res.locals.resultUser;
     await likesRepository.removeLikes(id, postId);
+    res.sendStatus(200);
   } catch (e) {
     console.log(e);
     res.status(500).send("Erro com o servidor");
