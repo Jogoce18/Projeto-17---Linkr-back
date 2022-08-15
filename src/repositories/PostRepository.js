@@ -63,7 +63,7 @@ async function getPosts() {
   FROM posts 
   JOIN users
   ON posts."userId" = users.id
-  ORDER BY id DESC
+  ORDER BY posts.id DESC
   `);
 }
 
