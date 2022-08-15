@@ -1,4 +1,5 @@
 import { hashtagsRepository } from "../repositories/hashtagsRepository.js";
+import { likesRepository } from "../repositories/likesRepository.js";
 
 export async function getHashTags(req, res) {
   try {
