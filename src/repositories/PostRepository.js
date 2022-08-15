@@ -17,7 +17,7 @@ async function createMyPost(
 }
 
 
-function deletingPostQuery(userId, postId) {
+/* function deletingPostQuery(userId, postId) {
   return db.query(
       `
       DELETE FROM posts 
@@ -26,7 +26,7 @@ function deletingPostQuery(userId, postId) {
       `,
       [userId, postId]
   );
-}
+} */
 async function searchPost(postId) {
   return db.query(
     `
@@ -68,7 +68,7 @@ async function getPosts() {
 }
 
 const PostRepository = {
-  deletingPostQuery,
+/*   deletingPostQuery, */
   createMyPost,
   searchPost,
   updatePost,
