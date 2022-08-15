@@ -20,7 +20,18 @@ async function postLikes(userId, postId) {
     [userId, postId]
   );
 }
+
+async function removeLikes(userId, postId) {
+  return db.query(
+    `
+  DELETE FROM likes
+  WHERE "userId"=$1 AND "postId"=$2`,
+    [userId, postId]
+  );
+}
+
 export const likesRepository = {
   getLikes,
   postLikes,
+  removeLikes,
 };
