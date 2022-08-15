@@ -3,9 +3,8 @@ import { hashtagsRepository } from "../repositories/hashtagsRepository.js";
 
 
 export async function getHashTags(req,res){
-    const userId = res.locals.userData;
-    console.log(userId)
-  //  if(!userId) res.send("usuario nao esta logado").status(401)
+    
+   
 
    
     try {
