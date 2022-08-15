@@ -39,11 +39,20 @@ async function deleteHashtagsOfPost(postId) {
     WHERE "postId" = $1
     `, [postId]);
 }
+async function getHashtagPosts(hashtag){
+    return db.query(`
+    SELECT * FROM  hashtags h
+    JOIN hashtagsposts hs ON h.id=hs."hashtagId"
+    JOIN posts p ON hs."postId"=p.id
+    WHERE name=$1`,[hashtag])
+
+}
 
 export const hashtagsRepository = {
     insertHashtags,
     selectHashtags,
     insertHashtagsPosts,
     deleteHashtagsOfPost,
-    getTrending
+    getTrending,
+    getHashtagPosts
 }
