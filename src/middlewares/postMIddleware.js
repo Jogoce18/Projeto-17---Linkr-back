@@ -12,7 +12,7 @@ const haveHashtag = async (req, res, next) => {
         });
 
         for(let i = 0; i < allHashtags.length; i++){
-            const hashtag = allHashtags[i];
+            const hashtag = allHashtags[i].split("#")[1];
             const { rows:hashtagDb } = await hashtagsRepository.selectHashtags(hashtag);
 
             if(!hashtagDb.length){
