@@ -35,7 +35,9 @@ async function deleteHashtagsOfPost(postId) {
 }
 async function getHashtagPosts(hashtag){
     return db.query(`
+
     select hs."hashtagId" , h.name , p.article , p."urlImage" , p."urlDescription", u.username , u."pictureURL" ,p.url , p."urlTitle"  , hs."postId" FROM hashtagsposts hs
+
     JOIN hashtags h ON hs."hashtagId"=h.id
     JOIN posts p ON hs."postId"=p.id
     JOIN users u ON p."userId"=u.id
