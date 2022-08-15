@@ -22,11 +22,11 @@ export async function getHashtagByName(req, res) {
 
     const { rows: likes } = await likesRepository.getLikes();
 
-    const joinHashtags = result.map((post) => {
-      const filterLikes = likes.filter((like) => like.postId === result.postId);
-      return { ...post, likes: filterLikes };
+    const joinHashtags = result.map((elem) => {
+      const filterLikes = likes.filter((like) => like.postId === elem.postId);
+      return { ...elem, likes: filterLikes };
     });
-
+    console.log(joinHashtags);
     res.send(joinHashtags).status(200);
   } catch (error) {
     console.log(error);
