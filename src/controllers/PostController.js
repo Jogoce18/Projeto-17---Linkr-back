@@ -71,3 +71,24 @@ export async function timeline(req, res) {
     res.sendStatus(400);
   }
 }
+/* export async function deletePost(req, res) {
+  const { id } = req.params;
+  const { userInfo } = res.locals;
+  const postId = parseInt(id);
+  try {
+      const { rowCount } = await PostRepository.deletingPostQuery(
+          userInfo.userId,
+          postId
+      );
+
+      if (rowCount !== 1) {
+          return res.sendStatus(404);
+      }
+
+      res.sendStatus(200);
+  } catch (e) {
+      console.log(e);
+
+      return res.sendStatus(500);
+  }
+} */

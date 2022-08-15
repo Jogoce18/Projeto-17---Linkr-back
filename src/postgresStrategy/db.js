@@ -6,11 +6,11 @@ dotenv.config();
 
 const databaseConfig = {
   connectionString: process.env.DATABASE_URL,
-  //user: "postgres",
-  //password: "" ,
-  //host: "localhost",
-  //port: "5432",
-  //database: "",
+  //  user: "postgres",
+  // password: "12345678J" ,
+  // host: "localhost",
+  // port: "5432",
+  // database: "linkcerto",
   ssl: {
     rejectUnauthorized: false,
   },
