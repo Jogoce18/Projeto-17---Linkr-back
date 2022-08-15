@@ -30,8 +30,18 @@ async function removeLikes(userId, postId) {
   );
 }
 
+async function removeAllLikes(postId) {
+  return db.query(
+    `
+  DELETE FROM likes
+  WHERE "postId"=$1`,
+    [postId]
+  );
+}
+
 export const likesRepository = {
   getLikes,
   postLikes,
   removeLikes,
+  removeAllLikes,
 };

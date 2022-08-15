@@ -19,7 +19,7 @@ async function createMyPost(
 function deletingPostQuery(userId, postId) {
   return db.query(
     `
-      DELETE FROM posts 
+      DELETE FROM posts CASCADE 
       WHERE "userId" = $1
       AND id = $2
       `,
@@ -64,6 +64,7 @@ async function getPosts() {
   JOIN users
   ON posts."userId" = users.id
   ORDER BY "postId" DESC
+  LIMIT 20
   `);
 }
 
