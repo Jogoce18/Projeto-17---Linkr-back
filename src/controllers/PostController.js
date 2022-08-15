@@ -1,6 +1,7 @@
 import PostRepository from "../repositories/PostRepository.js";
 import urlMetadata from "url-metadata";
 import { hashtagsRepository } from "../repositories/hashtagsRepository.js";
+import { likesRepository } from "../repositories/likesRepository.js";
 
 export async function CreatePost(req, res) {
   try {
@@ -57,7 +58,7 @@ export async function editPost(req, res) {
 export async function timeline(req, res) {
   try {
     const { rows: posts } = await PostRepository.getPosts();
-    const { rows: likes } = await PostRepository.getLikes();
+    const { rows: likes } = await likesRepository.getLikes();
 
     const joinPosts = posts.map((post) => {
       const filterLikes = likes.filter((like) => like.postId === post.postId);

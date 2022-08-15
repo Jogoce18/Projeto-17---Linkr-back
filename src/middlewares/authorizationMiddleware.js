@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 dotenv.config();
 
-async function tokenValidation(req, res, next) {
+export default async function validateToken(req, res, next) {
   const { authorization } = req.headers;
   const token = authorization?.replace("Bearer ", "").trim();
   const secretKey = process.env.JWT_SECRET;
@@ -13,15 +13,10 @@ async function tokenValidation(req, res, next) {
 
   try {
     jwt.verify(token, secretKey);
-    const resultSession = await tokenRepository.getToken(token);
-
-    if (resultSession.rowCount == 0) {
-      return res.status(401).send("Sessão não existe");
-    }
 
     const user = jwt.verify(token, secretKey).userId;
     const resultUser = await tokenRepository.getUser(user);
-
+    console.log(user);
     if (resultUser.rowCount == 0)
       return res.status(404).send("Usuário não encontrado"); // unauthorized
 
@@ -34,5 +29,3 @@ async function tokenValidation(req, res, next) {
     return res.status(401).send("Token expirado,faça login novamente");
   }
 }
-
-export default tokenValidation;

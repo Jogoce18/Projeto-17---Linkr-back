@@ -7,7 +7,7 @@ export async function searchUsers(req, res) {
 
     if (name) {
         querySupplies.push(name);
-        queryComplement += `WHERE users.name ILIKE $1 || '%'`;
+        queryComplement += `WHERE users.username ILIKE $1 || '%'`;
     }
 
     const { rows: dbUsers } = await userPatterns.searchUsers(queryComplement, querySupplies);

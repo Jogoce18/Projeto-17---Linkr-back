@@ -3,6 +3,7 @@ import db from "../postgresStrategy/db.js";
 function searchUsers(queryComplement, querySupplies) {
     return db.query(`
         SELECT 
+            users.id,
             users."pictureURL",
             users."username"
         FROM users

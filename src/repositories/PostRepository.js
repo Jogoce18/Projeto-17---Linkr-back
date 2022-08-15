@@ -63,17 +63,7 @@ async function getPosts() {
   FROM posts 
   JOIN users
   ON posts."userId" = users.id
-  `);
-}
-
-async function getLikes() {
-  return db.query(`
-  SELECT 
-    likes."postId",
-    users."username"
-  FROM likes
-  JOIN users
-  ON users.id=likes."userId"
+  ORDER BY "postId" DESC
   `);
 }
 
@@ -83,7 +73,6 @@ const PostRepository = {
   searchPost,
   updatePost,
   getPosts,
-  getLikes,
 };
 
 export default PostRepository;
