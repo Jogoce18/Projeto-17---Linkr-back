@@ -66,17 +66,6 @@ async function getPosts() {
   `);
 }
 
-async function getLikes() {
-  return db.query(`
-  SELECT 
-    likes."postId",
-    users."username"
-  FROM likes
-  JOIN users
-  ON users.id=likes."userId"
-  `);
-}
-
 const PostRepository = {
   deletePostById,
   createMyPost,
