@@ -3,6 +3,7 @@ import postsRouter from "./postsRoute.js";
 import usersRouter from "./usersRoute.js";
 import authRouter from "./authRoutes.js";
 import hashtagRouter from "./hashtagRoutes.js";
+import likesRouter from "./likesRoute.js";
 
 const router = Router();
 
