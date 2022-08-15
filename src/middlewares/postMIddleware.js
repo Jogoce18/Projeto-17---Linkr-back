@@ -18,7 +18,6 @@ const haveHashtag = async (req, res, next) => {
 
         for(let i = 0; i < allHashtags.length; i++){
             const hashtag = allHashtags[i].split("#")[1];
-            console.log(hashtag)
             const { rows:hashtagDb } = await hashtagsRepository.selectHashtags(hashtag);
 
             if(!hashtagDb.length){

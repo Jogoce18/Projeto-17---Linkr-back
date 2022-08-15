@@ -1,13 +1,21 @@
 import { userPatterns } from "../repositories/usersRepository.js";
+import { likesRepository } from "../repositories/likesRepository.js";
 
 export async function searchUsers(req, res) {
-    const { name } = req.query;
+    const { name, userId } = req.query;
     let queryComplement = "";
     const querySupplies = [];
 
     if (name) {
+        const tam = querySupplies.length;
         querySupplies.push(name);
-        queryComplement += `WHERE users.username ILIKE $1 || '%'`;
+        queryComplement += tam ? `AND users.username ILIKE $1 || '%'`: `WHERE users.username ILIKE $1 || '%'`;
+    }
+
+    if (userId) {
+        const tam = querySupplies.length;
+        querySupplies.push(userId);
+        queryComplement += tam ? `AND users.id = $${querySupplies.length}'`: `WHERE users.id = $${querySupplies.length}`;
     }
 
     const { rows: dbUsers } = await userPatterns.searchUsers(queryComplement, querySupplies);
@@ -20,8 +28,14 @@ export async function searchUserPosts (req, res) {
 
     try {
         const { rows: userPosts } = await userPatterns.selectUserPosts(userId);
+        const { rows: likes } = await likesRepository.getLikes();
 
-        res.status(200).send(userPosts);
+    const joinPosts = userPosts.map((post) => {
+      const filterLikes = likes.filter((like) => like.postId === post.postId);
+      return { ...post, likes: filterLikes };
+    });
+
+        res.status(200).send(joinPosts);
     } catch (e) {
         console.log(e);
         res.sendStatus(500);

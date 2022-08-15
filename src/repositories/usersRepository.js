@@ -32,8 +32,8 @@ async function selectUserPosts(userId) {
         users.id as "userId",
         users."username",
         users."pictureURL" 
-    FROM users 
-    JOIN posts 
+    FROM posts 
+    JOIN users 
     ON posts."userId" = users.id
     WHERE users.id = $1
     `, [userId]);
