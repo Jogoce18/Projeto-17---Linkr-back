@@ -71,7 +71,7 @@ export async function timeline(req, res) {
     res.sendStatus(400);
   }
 }
-export async function deletePost(req, res) {
+/* export async function deletePost(req, res) {
   const { id } = req.params;
   const { userInfo } = res.locals;
   const postId = parseInt(id);
@@ -91,4 +91,4 @@ export async function deletePost(req, res) {
 
       return res.sendStatus(500);
   }
-}
+} */
