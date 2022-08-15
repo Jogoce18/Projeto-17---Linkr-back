@@ -1,4 +1,4 @@
-import db from "../postgresStrategy/db";
+import db from "../postgresStrategy/db.js";
 
 async function getLikes() {
   return db.query(`

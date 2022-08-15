@@ -5,7 +5,7 @@ import {
   searchUsers,
   searchUserPosts,
 } from "../controllers/usersControlles.js";
-import { validateUserId } from "../middlewares/usersMiddlewares.js";
+import { validateUserId } from "../middlewares/usersMIddlewares.js";
 
 const router = Router();
 

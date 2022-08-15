@@ -72,7 +72,6 @@ const PostRepository = {
   searchPost,
   updatePost,
   getPosts,
-  getLikes,
 };
 
 export default PostRepository;
