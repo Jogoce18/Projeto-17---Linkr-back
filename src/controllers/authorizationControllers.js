@@ -34,6 +34,7 @@ export async function login(req, res) {
     }
   } catch (e) {
     res.status(500).send("Erro com o servidor");
+    console.log(e);
   }
 }
 
