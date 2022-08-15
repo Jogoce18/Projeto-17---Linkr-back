@@ -16,13 +16,7 @@ async function selectHashtags(hashtag) {
             WHERE name = $1
         `, [hashtag]);
 }
-async function getTrending() {
-    return db.query(`
-            SELECT *
-            FROM hashtags 
-            LIMIT 10
-        `, []);
-}
+
 
 async function insertHashtagsPosts(hashtagId, postId) {
     return db.query(`
@@ -41,13 +35,23 @@ async function deleteHashtagsOfPost(postId) {
 }
 async function getHashtagPosts(hashtag){
     return db.query(`
-    SELECT * FROM  hashtags h
-    JOIN hashtagsposts hs ON h.id=hs."hashtagId"
+    select hs."hashtagId" , h.name , p.article , p."urlImage" , p."urlDescription", u.username , u."pictureURL"    FROM hashtagsposts hs
+    JOIN hashtags h ON hs."hashtagId"=h.id
     JOIN posts p ON hs."postId"=p.id
-    WHERE name=$1`,[hashtag])
+    JOIN users u ON p."userId"=u.id
+    WHERE h.name=$1;
+    `,[hashtag])
 
 }
-
+async function getTrending() {
+    return db.query(`
+    select h.name , COUNT ( h.name) as "quanty"  from hashtagsposts hs
+    JOIN hashtags h ON hs."hashtagId"=h.id
+    GROUP BY h.name
+    ORDER BY quanty DESC
+    LIMIT 10;
+        `, );
+}
 export const hashtagsRepository = {
     insertHashtags,
     selectHashtags,
