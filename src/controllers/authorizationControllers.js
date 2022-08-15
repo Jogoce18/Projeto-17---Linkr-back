@@ -24,7 +24,7 @@ export async function login(req, res) {
 
       await authRepository.postLogin(token);
 
-      res.send({
+      res.status(200).send({
         token,
         username: checkUser[0].username,
         pictureUrl: checkUser[0].pictureURL,
