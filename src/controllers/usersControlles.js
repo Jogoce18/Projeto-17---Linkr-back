@@ -8,8 +8,8 @@ export async function searchUsers(req, res) {
 
     if (name) {
         const tam = querySupplies.length;
-        querySupplies.push(name);
-        queryComplement += tam ? `AND users.username ILIKE $1 || '%'`: `WHERE users.username ILIKE $1 || '%'`;
+        querySupplies.push(name.trimLeft());
+        queryComplement += tam ? `AND LOWER(users.username) LIKE LOWER($1) || '%'`: `WHERE users.username ILIKE $1 || '%'`;
     }
 
     if (userId) {
