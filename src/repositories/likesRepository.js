@@ -4,7 +4,8 @@ async function getLikes() {
   return db.query(`
   SELECT 
     likes."postId",
-    users."username"
+    users."username",
+    likes."userId" as "userId"
   FROM likes
   JOIN users
   ON users.id=likes."userId"
