@@ -2,7 +2,7 @@ import { userPatterns } from "../repositories/usersRepository.js";
 import { likesRepository } from "../repositories/likesRepository.js";
 
 export async function searchUsers(req, res) {
-    const { name, userId } = req.query;
+    const { name, userId, followerId } = req.query;
     let queryComplement = "";
     const querySupplies = [];
 
@@ -12,13 +12,22 @@ export async function searchUsers(req, res) {
         queryComplement += tam ? `AND LOWER(users.username) LIKE LOWER($1) || '%'`: `WHERE users.username ILIKE $1 || '%'`;
     }
 
+    if (name && followerId) {
+        const { rows: dbUsers} = await userPatterns.searchUsersBasedOnNomeAndOrderdByFollowingState(followerId, name);
+
+        res.status(200).send(dbUsers);
+        return;
+    }
+
     if (userId) {
         const tam = querySupplies.length;
         querySupplies.push(userId);
         queryComplement += tam ? `AND users.id = $${querySupplies.length}'`: `WHERE users.id = $${querySupplies.length}`;
     }
 
-    const { rows: dbUsers } = await userPatterns.searchUsers(queryComplement, querySupplies);
+    let { rows: dbUsers } = await userPatterns.searchUsers(queryComplement, querySupplies);
+
+    
 
     res.status(200).send(dbUsers);
 }
