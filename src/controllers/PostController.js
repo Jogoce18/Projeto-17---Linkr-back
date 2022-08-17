@@ -2,6 +2,7 @@ import PostRepository from "../repositories/PostRepository.js";
 import urlMetadata from "url-metadata";
 import { hashtagsRepository } from "../repositories/hashtagsRepository.js";
 import { likesRepository } from "../repositories/likesRepository.js";
+import { commentsRepository } from "../repositories/commentsRepository.js";
 
 export async function CreatePost(req, res) {
   try {
@@ -59,10 +60,20 @@ export async function timeline(req, res) {
   try {
     const { rows: posts } = await PostRepository.getPosts();
     const { rows: likes } = await likesRepository.getLikes();
+    const { rows: commentsCount } = await commentsRepository.getNumber();
 
     const joinPosts = posts.map((post) => {
       const filterLikes = likes.filter((like) => like.postId === post.postId);
-      return { ...post, likes: filterLikes };
+
+      const filterComments = commentsCount.filter(
+        (comment) => comment.postId === post.postId
+      );
+
+      return {
+        ...post,
+        likes: filterLikes,
+        numberComments: filterComments[0].number,
+      };
     });
 
     res.status(200).send(joinPosts);
@@ -76,19 +87,16 @@ export async function deletePost(req, res) {
   const { id } = req.params;
   const { resultUser } = res.locals;
   const postId = parseInt(id);
-  
+
   try {
     await hashtagsRepository.deleteHashtagsOfPost(postId);
     await likesRepository.removeAllLikes(postId);
-    await PostRepository.deletingPostQuery(
-          resultUser.id,
-          postId
-      );
+    await PostRepository.deletingPostQuery(resultUser.id, postId);
 
-      res.sendStatus(200);
+    res.sendStatus(200);
   } catch (e) {
-      console.log(e);
+    console.log(e);
 
-      return res.sendStatus(500);
+    return res.sendStatus(500);
   }
 }

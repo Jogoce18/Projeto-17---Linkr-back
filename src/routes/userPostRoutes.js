@@ -7,12 +7,10 @@ import {
 } from "../controllers/userPostController.js";
 
 import schemaValidateMiddleware from "../middlewares/schemaValidateMiddleware.js";
-import validateToken from "../middlewares/validateToken.js";
+import validateToken from "../middlewares/authorizationMiddleware.js";
 import postSchema from "../schemas/userPostSchema.js";
 import { validateUserId } from "../middlewares/usersMIddlewares.js";
 import { selectAll } from "../controllers/userPostController.js";
-import userPostRepository from "../repositories/userPostRepository.js";
-import { getPosts } from "../controllers/userPostController.js";
 
 const userPost = Router();
 
