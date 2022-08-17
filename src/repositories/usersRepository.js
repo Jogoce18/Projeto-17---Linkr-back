@@ -39,8 +39,23 @@ async function selectUserPosts(userId) {
     `, [userId]);
 }
 
+async function searchUsersBasedOnNomeAndOrderdByFollowingState(id , name) {
+    return db.query(`
+    SELECT 
+        users.id,
+        users."pictureURL",
+        users."username",
+        users.id IN (SELECT "userId" FROM followers WHERE "followerId" = $1) as "isFollowing"
+    FROM users
+    WHERE 
+        LOWER(users."username") LIKE LOWER($2) || '%'
+    ORDER BY "isFollowing" DESC
+    `, [id, name]);
+}
+
 export const userPatterns = {
     searchUsers,
     selectUserById,
     selectUserPosts,
+    searchUsersBasedOnNomeAndOrderdByFollowingState,
 }
