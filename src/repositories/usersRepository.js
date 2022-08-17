@@ -36,6 +36,7 @@ async function selectUserPosts(userId) {
     JOIN users 
     ON posts."userId" = users.id
     WHERE users.id = $1
+    ORDER BY posts.id DESC
     `, [userId]);
 }
 
