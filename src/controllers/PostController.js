@@ -26,7 +26,9 @@ export async function CreatePost(req, res) {
       await hashtagsRepository.insertHashtagsPosts(hashtagId, postId[0].id);
     }
 
-    return res.sendStatus(201);
+    const { rows: postData } = await PostRepository.joinPostData(postId[0].id);
+
+    return res.status(201).send(postData[0]);
   } catch (e) {
     console.log(e);
     res.sendStatus(500);
