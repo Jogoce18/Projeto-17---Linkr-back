@@ -35,3 +35,9 @@ export async function createFollow(req, res) {
     
 }
 
+export async function countFollows(req, res) {
+    const id = parseInt(req.params.id);
+    const { rows: dbFollows } = await followerRepository.countUserFollows(id);
+
+    res.status(200).send(dbFollows[0].count);
+}

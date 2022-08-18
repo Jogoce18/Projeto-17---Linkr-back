@@ -28,8 +28,17 @@ async function insertFollow(userId, followerId) {
     `, [userId, followerId]);
 }
 
+async function countUserFollows(id) {
+    return db.query(`
+        SELECT COUNT("followerId") as "count"
+        FROM followers
+        WHERE "followerId" = $1
+    `, [id]);
+}
+
 export const followerRepository = {
     selectFollowByIds,
     deleteFollow,
     insertFollow,
+    countUserFollows,
 }
