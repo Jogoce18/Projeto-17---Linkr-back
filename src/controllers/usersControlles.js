@@ -12,7 +12,7 @@ export async function searchUsers(req, res) {
     }
 
     if (name && followerId) {
-        const { rows: dbUsers} = await userPatterns.searchUsersBasedOnNomeAndOrderdByFollowingState(followerId, name);
+        const { rows: dbUsers} = await userPatterns.searchUsersBasedOnNameAndOrderedByFollowingState(followerId, name);
 
         res.status(200).send(dbUsers);
         return;

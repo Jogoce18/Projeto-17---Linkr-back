@@ -67,8 +67,34 @@ async function getPosts(id) {
 	  posts."userId" IN (SELECT "userId" FROM followers WHERE "followerId" = $1) OR
     posts."userId" = $1
   ORDER BY "postId" DESC
-  LIMIT 20
   `, [id]);
+}
+
+async function joinPostData(postId) {
+  return db.query(`
+  SELECT 
+    posts.id AS "postId",
+    posts.url,
+    posts.article,
+    posts."urlTitle",
+    posts."urlImage",
+    posts."urlDescription",
+    users.id AS "userId",
+    users."username",
+    users."pictureURL",
+    COALESCE((
+      SELECT 
+          json_agg(json_build_object('postId', likes."postId", 'username', users.username, 'userId', likes."userId"))
+      FROM likes
+      JOIN users
+      ON users.id=likes."userId"
+      WHERE likes."postId" = posts.id), '[]') as "likes"
+  FROM posts 
+  JOIN users
+  ON posts."userId" = users.id
+  WHERE 
+    posts.id = $1
+  `, [postId]);
 }
 
 const PostRepository = {
@@ -77,6 +103,7 @@ const PostRepository = {
   searchPost,
   updatePost,
   getPosts,
+  joinPostData,
 };
 
 export default PostRepository;

@@ -47,7 +47,7 @@ async function selectUserPosts(userId) {
     `, [userId]);
 }
 
-async function searchUsersBasedOnNomeAndOrderdByFollowingState(id , name) {
+async function searchUsersBasedOnNameAndOrderedByFollowingState(id , name) {
     return db.query(`
     SELECT 
         users.id,
@@ -65,5 +65,5 @@ export const userPatterns = {
     searchUsers,
     selectUserById,
     selectUserPosts,
-    searchUsersBasedOnNomeAndOrderdByFollowingState,
+    searchUsersBasedOnNameAndOrderedByFollowingState,
 }
