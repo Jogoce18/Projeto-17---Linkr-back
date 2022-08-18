@@ -16,7 +16,7 @@ export default async function validateToken(req, res, next) {
 
     const user = jwt.verify(token, secretKey).userId;
     const resultUser = await tokenRepository.getUser(user);
-    
+
     if (resultUser.rowCount == 0)
       return res.status(404).send("Usuário não encontrado"); // unauthorized
 
