@@ -7,7 +7,7 @@ export async function getHashTags(req, res) {
     if (result.rowCount === 0)
       return res.send("Ainda nao existe trending ").status(404);
 
-    res.send(result.rows).status(200);
+    res.status(200).send(result.rows);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
@@ -26,8 +26,7 @@ export async function getHashtagByName(req, res) {
       const filterLikes = likes.filter((like) => like.postId === elem.postId);
       return { ...elem, likes: filterLikes };
     });
-    console.log(joinHashtags);
-    res.send(joinHashtags).status(200);
+    res.status(200).send(joinHashtags);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);

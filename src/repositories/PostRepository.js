@@ -48,7 +48,7 @@ async function updatePost(article, postId, userId) {
   );
 }
 
-async function getPosts() {
+async function getPosts(id) {
   return db.query(`
   SELECT 
     posts.id AS "postId",
@@ -63,9 +63,12 @@ async function getPosts() {
   FROM posts 
   JOIN users
   ON posts."userId" = users.id
+  WHERE 
+	  posts."userId" IN (SELECT "userId" FROM followers WHERE "followerId" = $1) OR
+    posts."userId" = $1
   ORDER BY "postId" DESC
   LIMIT 20
-  `);
+  `, [id]);
 }
 
 const PostRepository = {

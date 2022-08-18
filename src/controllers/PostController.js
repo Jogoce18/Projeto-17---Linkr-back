@@ -57,8 +57,10 @@ export async function editPost(req, res) {
 }
 
 export async function timeline(req, res) {
+  const id = res.locals.resultUser.id;
+
   try {
-    const { rows: posts } = await PostRepository.getPosts();
+    const { rows: posts } = await PostRepository.getPosts(id);
     const { rows: likes } = await likesRepository.getLikes();
     const { rows: commentsCount } = await commentsRepository.getNumber();
 
