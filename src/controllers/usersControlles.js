@@ -1,5 +1,4 @@
 import { userPatterns } from "../repositories/usersRepository.js";
-import { likesRepository } from "../repositories/likesRepository.js";
 
 export async function searchUsers(req, res) {
     const { name, userId, followerId } = req.query;
@@ -37,14 +36,8 @@ export async function searchUserPosts (req, res) {
 
     try {
         const { rows: userPosts } = await userPatterns.selectUserPosts(userId);
-        const { rows: likes } = await likesRepository.getLikes();
 
-    const joinPosts = userPosts.map((post) => {
-      const filterLikes = likes.filter((like) => like.postId === post.postId);
-      return { ...post, likes: filterLikes };
-    });
-
-        res.status(200).send(joinPosts);
+        res.status(200).send(userPosts);
     } catch (e) {
         console.log(e);
         res.sendStatus(500);

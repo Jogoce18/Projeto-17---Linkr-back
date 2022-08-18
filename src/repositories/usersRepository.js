@@ -23,15 +23,22 @@ async function selectUserById(id) {
 async function selectUserPosts(userId) {
     return db.query(`
     SELECT 
-        posts.id as "postId",
-        posts.url,
-        posts.article,
-        posts."urlTitle",
-        posts."urlImage",
-        posts."urlDescription",
-        users.id as "userId",
-        users."username",
-        users."pictureURL" 
+	posts.id as "postId",
+	posts.url,
+	posts.article,
+	posts."urlTitle",
+	posts."urlImage",
+	posts."urlDescription",
+	users.id as "userId",
+	users."username",
+	users."pictureURL",
+	COALESCE((
+        SELECT 
+            json_agg(json_build_object('postId', likes."postId", 'username', users.username, 'userId', likes."userId"))
+        FROM likes
+        JOIN users
+        ON users.id=likes."userId"
+        WHERE likes."postId" = posts.id), '[]') as "likes"
     FROM posts 
     JOIN users 
     ON posts."userId" = users.id
