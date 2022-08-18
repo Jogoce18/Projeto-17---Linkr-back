@@ -64,7 +64,8 @@ async function getPosts(id) {
   JOIN users
   ON posts."userId" = users.id
   WHERE 
-	  posts."userId" IN (SELECT "userId" FROM followers WHERE "followerId" = $1)
+	  posts."userId" IN (SELECT "userId" FROM followers WHERE "followerId" = $1) OR
+    posts."userId" = $1
   ORDER BY "postId" DESC
   LIMIT 20
   `, [id]);
