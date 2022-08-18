@@ -63,21 +63,20 @@ export async function timeline(req, res) {
     const { rows: posts } = await PostRepository.getPosts(id);
     const { rows: likes } = await likesRepository.getLikes();
     const { rows: commentsCount } = await commentsRepository.getNumber();
-
+    console.log(commentsCount);
+    console.log(posts);
     const joinPosts = posts.map((post) => {
       const filterLikes = likes.filter((like) => like.postId === post.postId);
-
       const filterComments = commentsCount.filter(
         (comment) => comment.postId === post.postId
       );
-
       return {
         ...post,
         likes: filterLikes,
-        numberComments: filterComments[0].number,
+        numberComments:
+          filterComments.length !== 0 ? filterComments[0].number : 0,
       };
     });
-
     res.status(200).send(joinPosts);
   } catch (e) {
     console.log(e);
