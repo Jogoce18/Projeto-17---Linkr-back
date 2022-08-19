@@ -92,6 +92,7 @@ export async function deletePost(req, res) {
   try {
     await hashtagsRepository.deleteHashtagsOfPost(postId);
     await likesRepository.removeAllLikes(postId);
+    await commentsRepository.deleteAllCommentsInApost(postId);
     await PostRepository.deletingPostQuery(resultUser.id, postId);
 
     res.sendStatus(200);

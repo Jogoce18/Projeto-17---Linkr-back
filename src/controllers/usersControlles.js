@@ -1,4 +1,5 @@
 import { userPatterns } from "../repositories/usersRepository.js";
+import { commentsRepository } from "../repositories/commentsRepository.js";
 
 export async function searchUsers(req, res) {
     const { name, userId, followerId } = req.query;
@@ -36,8 +37,18 @@ export async function searchUserPosts (req, res) {
 
     try {
         const { rows: userPosts } = await userPatterns.selectUserPosts(userId);
-
-        res.status(200).send(userPosts);
+        const { rows: commentsCount } = await commentsRepository.getNumber();
+        const joinPosts = userPosts.map((post) => {
+        const filterComments = commentsCount.filter(
+            (comment) => comment.postId === post.postId
+        );
+        return {
+            ...userPosts,
+            numberComments:
+            filterComments.length !== 0 ? filterComments[0].number : 0,
+        };
+        });
+        res.status(200).send(joinPosts);
     } catch (e) {
         console.log(e);
         res.sendStatus(500);
