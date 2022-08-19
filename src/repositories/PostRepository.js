@@ -49,7 +49,8 @@ async function updatePost(article, postId, userId) {
 }
 
 async function getPosts(id) {
-  return db.query(`
+  return db.query(
+    `
   SELECT 
     posts.id AS "postId",
     posts.url,
@@ -67,11 +68,14 @@ async function getPosts(id) {
 	  posts."userId" IN (SELECT "userId" FROM followers WHERE "followerId" = $1) OR
     posts."userId" = $1
   ORDER BY "postId" DESC
-  `, [id]);
+  `,
+    [id]
+  );
 }
 
 async function joinPostData(postId) {
-  return db.query(`
+  return db.query(
+    `
   SELECT 
     posts.id AS "postId",
     posts.url,
@@ -94,7 +98,9 @@ async function joinPostData(postId) {
   ON posts."userId" = users.id
   WHERE 
     posts.id = $1
-  `, [postId]);
+  `,
+    [postId]
+  );
 }
 
 const PostRepository = {
