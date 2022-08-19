@@ -35,8 +35,16 @@ async function getNumber() {
   );
 }
 
+async function deleteAllCommentsInApost(postId) {
+  return db.query(`
+  DELETE FROM comments
+  WHERE "postId" = $1
+  `, [postId]);
+}
+
 export const commentsRepository = {
   postComment,
   getCommentsbyId,
   getNumber,
+  deleteAllCommentsInApost,
 };
